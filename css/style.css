@@ -31,6 +31,17 @@ body {
     text-align: center;
 }
 
+.question {
+    color: white;
+    margin-bottom: 12px;
+
+}
+
+.result {
+    color: white;
+    align-items: center;
+}
+
 .button {
     width: 220px;
     height: 50px;

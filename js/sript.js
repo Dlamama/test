@@ -17,12 +17,33 @@ let questions = [
         options: ["язык программирования", "каскадная таблица стилей", "база данных", "язык разметки"],
         correctAnswer: "каскадная таблица стилей"
 
-    }
+    },
+    {
+        question: "что такое js",
+        options: ["язык программирования", "фигня какая-то", "не знаю", "язык разметки"],
+        correctAnswer: "язык программирования"
+
+    },
+    {
+        question: "кто изобрёл js",
+        options: ["я", "Дима", "мухамед", "Брендан Эйх"],
+        correctAnswer: "Брендан Эйх"
+
+    },
+    {
+        question: "лидер диссиптиконов",
+        options: ["ты", "Оптимус прайм", "бамбл би", "Мегатрон"],
+        correctAnswer: "Мегатрон"
+
+    },
+
+
 ]
 let currentQuestion = 0 // текущий вопрос
 let correctAnswers = 0 // колво правильных ответов
+let uncorrectAnswers = 0
 
-
+let people = prompt("введите ваше имя")
 // функция для отображения текущего вопроса и вариантов ответа
 function displayQuestion() {
     let questionElement = document.getElementById("question");
@@ -31,12 +52,51 @@ function displayQuestion() {
     optionsElement.innerHTML = "";
 
     let optionsArray = questions[currentQuestion].options;
+
+
     optionsArray.forEach((option) => {
         let button = document.createElement("button")
         optionsElement.append(button);
         button.textContent = option;
         button.classList.add('button');
-    })
+    });
+    // добавить обработчик событий на блок с кнопками
+    optionsElement.addEventListener('click', (e) => {
+        //записать в переменную элемент на который кликнули
+        let target = e.target
+
+        nextQuestion(target.textContent);
+
+    }, { once: true });
 }
+
+function nextQuestion(answer) {
+    if (answer === questions[currentQuestion].correctAnswer) {
+        correctAnswers++;
+    } else {
+        uncorrectAnswers
+    }
+    currentQuestion++
+    if (currentQuestion < questions.length) {
+        displayQuestion();
+    } else {
+        displayResult();
+    }
+}
+
+
+
+let prozent = questions.length / 100 * correctAnswers
+
+function displayResult() {
+    let questionElement = document.getElementById('question');
+    let optionsElement = document.getElementById("options");
+    let resultElement = document.getElementById('result');
+    questionElement.style.display = "none";
+    optionsElement.style.display = "none";
+    resultElement.textContent = `${people} Правильных ответов ${correctAnswers} из ${questions.length} это ${prozent} %`
+
+}
+
 
 displayQuestion();
