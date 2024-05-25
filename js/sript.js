@@ -41,7 +41,7 @@ let questions = [
 ]
 let currentQuestion = 0 // текущий вопрос
 let correctAnswers = 0 // колво правильных ответов
-let uncorrectAnswers = 0
+let uncorrectAnswers = []
 
 let people = prompt("введите ваше имя")
 // функция для отображения текущего вопроса и вариантов ответа
@@ -74,9 +74,10 @@ function nextQuestion(answer) {
     if (answer === questions[currentQuestion].correctAnswer) {
         correctAnswers++;
     } else {
-        uncorrectAnswers
+        uncorrectAnswers.push(uncorrectAnswers)
     }
     currentQuestion++
+
     if (currentQuestion < questions.length) {
         displayQuestion();
     } else {
@@ -86,17 +87,16 @@ function nextQuestion(answer) {
 
 
 
-let prozent = questions.length / 100 * correctAnswers
 
 function displayResult() {
+    let prozent = correctAnswers / questions.length * 100
+    console.log(prozent)
     let questionElement = document.getElementById('question');
     let optionsElement = document.getElementById("options");
     let resultElement = document.getElementById('result');
     questionElement.style.display = "none";
     optionsElement.style.display = "none";
-    resultElement.textContent = `${people} Правильных ответов ${correctAnswers} из ${questions.length} это ${prozent} %`
-
+    resultElement.textContent = `${people} Правильных ответов ${correctAnswers} из ${questions.length} это ${prozent.toFixed(0)} % вы допустили ошибку в ${uncorrectAnswers}`;
 }
-
 
 displayQuestion();
